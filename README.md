@@ -73,30 +73,16 @@ public class MyAuthService(IWebAuthenticator authenticator)
 
 #### 2. Using via Static Instances
 
-The static `DebugWebAuthenticator` class provides three ways to access an `IWebAuthenticator` instance:
+The static `DebugWebAuthenticator` class provides two ways to access an `IWebAuthenticator` instance:
 
 * **Default**: Explicitly returns the default `WebAuthenticator` provided by the .NET MAUI library
 * **Debug**: Explicitly returns the debug web authenticator that uses the embedded `WebView`
-* **Current**: Returns either the default `WebAuthenticator` in `Release` configuration or the debug web authenticator in `Debug` configuration
 
 Examples:
 
 ```csharp
 public class MyAuthService()
 {
-    public Task<WebAuthenticatorResult> Authenticate(string authUrl, string callbackUrl)
-    {
-        var options = new WebAuthenticatorOptions
-        {
-            Url = new Uri(authUrl),
-            CallbackUrl = new Uri(callbackUrl)
-        };
-
-        return DebugWebAuthenticator.Current.AuthenticateAsync(options);
-    }
-
-    // or if you want more control:
-
     public Task<WebAuthenticatorResult> Authenticate(string authUrl, string callbackUrl)
     {
         var options = new WebAuthenticatorOptions
