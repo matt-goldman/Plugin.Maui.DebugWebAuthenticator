@@ -58,13 +58,13 @@ This extension method uses compiler directives to register and implementation of
 ```csharp
 public class MyAuthService(IWebAuthenticator authenticator)
 {
-    public async Task Authenticate(string authUrl, string callbackUrl)
+    public Task<WebAuthenticatorResult> Authenticate(string authUrl, string callbackUrl)
     {
         var options = new WebAuthenticatorOptions
         {
             Url = new Uri(authUrl),
             CallbackUrl = new Uri(callbackUrl)
-        }
+        };
 
         return authenticator.AuthenticateAsync(options);
     }
@@ -84,26 +84,26 @@ Examples:
 ```csharp
 public class MyAuthService()
 {
-    public async Task Authenticate(string authUrl, string callbackUrl)
+    public Task<WebAuthenticatorResult> Authenticate(string authUrl, string callbackUrl)
     {
         var options = new WebAuthenticatorOptions
         {
             Url = new Uri(authUrl),
             CallbackUrl = new Uri(callbackUrl)
-        }
+        };
 
         return DebugWebAuthenticator.Current.AuthenticateAsync(options);
     }
 
     // or if you want more control:
 
-    public async Task Authenticate(string authUrl, string callbackUrl)
+    public Task<WebAuthenticatorResult> Authenticate(string authUrl, string callbackUrl)
     {
         var options = new WebAuthenticatorOptions
         {
             Url = new Uri(authUrl),
             CallbackUrl = new Uri(callbackUrl)
-        }
+        };
 #if DEBUG
         return DebugWebAuthenticator.Debug.AuthenticateAsync(options);
 #else
