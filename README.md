@@ -53,7 +53,7 @@ public static class MauiProgram
 }
 ```
 
-This extension method uses compiler directives to register and implementation of `IWebAuthenticator`, either the default .NET MAUI `WebAuthenticator` in `Release` configuration, or the debug version in `Debug` configuration. You can then inject `IWebAuthenticator` into your consuming class and use as normal:
+This extension method uses compiler directives to register an implementation of `IWebAuthenticator`, either the default .NET MAUI `WebAuthenticator` in `Release` configuration, or the debug version in `Debug` configuration. You can then inject `IWebAuthenticator` into your consuming class and use as normal:
 
 ```csharp
 public class MyAuthService(IWebAuthenticator authenticator)
