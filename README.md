@@ -76,7 +76,7 @@ public class MyAuthService(IWebAuthenticator authenticator)
 The static `DebugWebAuthenticator` class provides three ways to access an `IWebAuthenticator` instance:
 
 * **Default**: Explicitly returns the default `WebAuthenticator` provided by the .NET MAUI library
-* **Debug**: Explicity returns the debug web authenticator that uses the embedded `WebView`
+* **Debug**: Explicitly returns the debug web authenticator that uses the embedded `WebView`
 * **Current**: Returns either the default `WebAuthenticator` in `Release` configuration or the debug web authenticator in `Debug` configuration
 
 Examples:
