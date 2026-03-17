@@ -112,3 +112,7 @@ public class MyAuthService()
     }
 }
 ```
+
+## Important notes
+
+The debug web authenticator implements the `IWebAuthenticator` interface, which defined methods that accpet `WebAuthenticatorOptions`. `WebAuthenticatorOptions` has nullable `Uri` properties for `Url` and `CallbackUrl`. If you don't provide these the debug web authenticator will return an empty `WebAuthenticatorResult`. I've deliberately chosen not to check these and throw an exception, so make sure you supply them!
