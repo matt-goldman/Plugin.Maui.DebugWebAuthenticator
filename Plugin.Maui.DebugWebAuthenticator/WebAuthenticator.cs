@@ -1,4 +1,6 @@
-﻿namespace Plugin.Maui.DebugWebAuthenticator;
+﻿using Microsoft.Maui.ApplicationModel;
+
+namespace Plugin.Maui.DebugWebAuthenticator;
 
 internal class WebAuthenticator : IWebAuthenticator
 {
@@ -12,7 +14,7 @@ internal class WebAuthenticator : IWebAuthenticator
             return new WebAuthenticatorResult();
         }
 
-        var tcs = new TaskCompletionSource<WebAuthenticatorResult>();
+        var tcs = new TaskCompletionSource<WebAuthenticatorResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         var dismissed = false;
 
         var webView = new WebView
@@ -40,12 +42,12 @@ internal class WebAuthenticator : IWebAuthenticator
         using var reg = cancellationToken.Register(() =>
             tcs.TrySetResult(new WebAuthenticatorResult()));
         var navigation = Application.Current!.Windows[0].Page!.Navigation;
-        await navigation.PushModalAsync(page);
+        await MainThread.InvokeOnMainThreadAsync(() => navigation.PushModalAsync(page));
 
         var result = await tcs.Task;
 
         if (!dismissed)
-            await navigation.PopModalAsync();
+            await MainThread.InvokeOnMainThreadAsync(() => navigation.PopModalAsync());
 
         return result;
     }
