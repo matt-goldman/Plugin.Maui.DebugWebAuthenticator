@@ -7,7 +7,7 @@ public static class MauiAppBuilderExtensions
 #if DEBUG
         builder.Services.AddSingleton<IWebAuthenticator, WebAuthenticator>();
 #else
-        builder.Services.AddSingleton<IWebAuthenticator, Microsoft.Maui.Authentication.WebAuthenticator>();
+        builder.Services.AddSingleton<IWebAuthenticator>(Microsoft.Maui.Authentication.WebAuthenticator.Default);
 #endif
         return builder;
     }
