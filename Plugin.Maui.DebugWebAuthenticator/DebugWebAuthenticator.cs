@@ -5,20 +5,20 @@ public static class DebugWebAuthenticator
     public static IWebAuthenticator Default { get; } = Microsoft.Maui.Authentication.WebAuthenticator.Default;
     public static IWebAuthenticator Debug { get; } = new WebAuthenticator();
 
-    private static IWebAuthenticator _current;
+    public static IWebAuthenticator Current { get; }
 
     static DebugWebAuthenticator()
     {
 #if DEBUG
-        _current = Debug;
+        Current = Debug;
 #else
-        _current = Default;
+        Current = Default;
 #endif
     }
 
     public static Task<WebAuthenticatorResult> AuthenticateAsync(WebAuthenticatorOptions webAuthenticatorOptions)
-        => _current.AuthenticateAsync(webAuthenticatorOptions);
+        => Current.AuthenticateAsync(webAuthenticatorOptions);
 
     public static Task<WebAuthenticatorResult> AuthenticateAsync(WebAuthenticatorOptions webAuthenticatorOptions, CancellationToken cancellationToken)
-        => _current.AuthenticateAsync(webAuthenticatorOptions, cancellationToken);
+        => Current.AuthenticateAsync(webAuthenticatorOptions, cancellationToken);
 }
